@@ -18,8 +18,8 @@ export default function Header() {
       </div>
       <div className=" items-center absolute right-4 top-4">
         <MenuItem
-          acnt_name="Abrar Tanim"
-          acnt_picture={<MdAccountCircle className="text-black text-4xl" />}
+          account_name="Abrar Tanim"
+          account_picture={<MdAccountCircle className="text-black text-4xl" />}
         />
       </div>
     </div>
