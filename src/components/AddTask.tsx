@@ -2,8 +2,12 @@
 
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { Task } from "@/app/types";
+interface AddTaskFormProps {
+  onAddTask: (newTask: Omit<Task, "id" | "createdAt" | "status">) => void;
+}
 
-export default function AddTask() {
+export default function AddTask({ onAddTask }: AddTaskFormProps) {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
 
@@ -11,6 +15,11 @@ export default function AddTask() {
     e.preventDefault();
     console.log("Task Title: ", taskTitle);
     console.log("Task Descrition: ", taskDescription);
+
+    onAddTask({
+      title: taskTitle.trim(),
+      description: taskDescription.trim(),
+    });
 
     setTaskTitle("");
     setTaskDescription("");
