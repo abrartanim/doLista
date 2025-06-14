@@ -4,7 +4,6 @@ import TaskListAndFilters from "@/components/TaskListAndFilters";
 export default function Home() {
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col space-y-8 ">
-      <TaskCount />
       {/* <AddTask /> */}
       {/* <FilterButtons /> */}
       {/* <TaskCard /> */}
