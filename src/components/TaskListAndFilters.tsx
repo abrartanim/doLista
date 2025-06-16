@@ -6,21 +6,22 @@ import { format } from "date-fns"; // For formatting dates
 import { v4 as uuidv4 } from "uuid"; // For generating unique IDs
 import { Task, FilterType } from "@/app/types"; // Import types
 import TaskCount from "./TaskCount";
-
+import { FaSignOutAlt } from "react-icons/fa";
 // Import the sub-components
 import AddTask from "./AddTask";
 import FilterButtons from "./FilterButtons";
 import TaskCard from "./TaskCard";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 // Firebase Core and Firestore/Auth Specifics
-import { initializeApp, FirebaseApp } from "firebase/app"; // Core Firebase app initialization
-import {
-  getAuth,
-  signInAnonymously,
-  onAuthStateChanged,
-  Auth,
-  User,
-} from "firebase/auth"; // Authentication methods
+// import { initializeApp, FirebaseApp } from "firebase/app"; // Core Firebase app initialization
+// import {
+//   getAuth,
+//   signInAnonymously,
+//   onAuthStateChanged,
+//   Auth,
+//   User,
+// } from "firebase/auth"; // Authentication methods
 import {
   getFirestore, // Get the Firestore database instance
   collection, // Function to get a reference to a collection
@@ -38,7 +39,15 @@ import {
 import { useFirebase } from "@/lib/firebase";
 
 export default function TaskListAndFilters() {
-  const { db, userId, isAuthenticated, loading, error } = useFirebase();
+  const {
+    db,
+    userId,
+    isAuthenticated,
+    loading,
+    error,
+    signInWithGoogle,
+    signOutUser,
+  } = useFirebase();
   // Use a state for the tasks
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -278,18 +287,50 @@ export default function TaskListAndFilters() {
     }
   }, [activeFilter, tasks]);
 
+  // If not authenticated, show the login UI
+  if (!isAuthenticated) {
+    return (
+      <div className="flex flex-col justify-center items-center w-full  p-4 sm:p-6  rounded-xl shadow-lg ">
+        <h2 className="text-3xl font-bold text-gray-800 mb-8">
+          Welcome to Your Todo App!
+        </h2>
+        <p className="text-gray-600 mb-6">
+          Please sign in to manage your tasks.
+        </p>
+        <GoogleSignInButton onClick={signInWithGoogle} disabled={loading} />
+      </div>
+    );
+  }
+
   return (
     <div>
+      {/* <div className="flex justify-between items-center mb-6 py-2 px-4 bg-white rounded-lg shadow-sm">
+        {userId && (
+          <div className="text-gray-600 text-sm">
+            Logged in as:{" "}
+            <span className="font-mono bg-gray-100 px-2 py-1 rounded-md text-xs">
+              {userId}
+            </span>
+          </div>
+        )}
+        <button
+          onClick={signOutUser}
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md flex items-center space-x-2 transition-colors duration-200 shadow-sm"
+        >
+          <FaSignOutAlt />
+          <span>Logout</span>
+        </button>
+      </div> */}
       <div className="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
         {/* Display User ID (managed by useFirebase hook) */}
-        {userId && (
+        {/* {userId && (
           <div className="text-center text-gray-600 text-sm mb-4">
             Logged in as:{" "}
             <span className="font-mono bg-gray-100 px-2 py-1 rounded">
               {userId}
             </span>
           </div>
-        )}
+        )} */}
 
         {/* Loading and Error Messages (managed by useFirebase hook) */}
         {loading && (

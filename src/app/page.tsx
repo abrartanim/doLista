@@ -8,9 +8,9 @@ export default function Home() {
       {/* <FilterButtons /> */}
       {/* <TaskCard /> */}
       <TaskListAndFilters />
-      <div className="flex justify-center items-center text-gray-500 mb-5">
+      {/* <div className="flex justify-center items-center text-gray-500 mb-5">
         <h3>Developed by Abrar Tanim</h3>
-      </div>
+      </div> */}
     </div>
   );
 }
