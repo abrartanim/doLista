@@ -79,7 +79,7 @@ export default function TaskListAndFilters() {
     // This path MUST match the security rules you published in the Firebase Console.
     const tasksCollectionRef = collection(
       db,
-      `artifacts/${appId}/public/data/tasks`
+      `artifacts/${appId}/users/${userId}/tasks`
     );
 
     // Create a query to listen for all documents in the 'tasks' collection.
@@ -151,7 +151,7 @@ export default function TaskListAndFilters() {
         return;
       }
       await addDoc(
-        collection(db, `artifacts/${appId}/public/data/tasks`),
+        collection(db, `artifacts/${appId}/users/${userId}/tasks`),
         taskToAdd
       );
       console.log("Task added successfully to Firestore.");
@@ -174,7 +174,7 @@ export default function TaskListAndFilters() {
         console.error("Firebase Project ID is missing.");
         return;
       }
-      const taskRef = doc(db, `artifacts/${appId}/public/data/tasks`, id);
+      const taskRef = doc(db, `artifacts/${appId}/users/${userId}/tasks`, id);
       const currentTask = tasks.find((task) => task.id === id);
 
       if (currentTask) {
@@ -234,7 +234,7 @@ export default function TaskListAndFilters() {
       }
       const taskRef = doc(
         db,
-        `artifacts/${appId}/public/data/tasks`,
+        `artifacts/${appId}/users/${userId}/tasks`,
         editingTask.id
       );
       await updateDoc(taskRef, {
@@ -270,7 +270,7 @@ export default function TaskListAndFilters() {
         console.error("Firebase Project ID is missing.");
         return;
       }
-      const taskRef = doc(db, `artifacts/${appId}/public/data/tasks`, id);
+      const taskRef = doc(db, `artifacts/${appId}/users/${userId}/tasks`, id);
       await deleteDoc(taskRef);
       console.log(`Task ${id} deleted successfully.`);
     } catch (err) {
