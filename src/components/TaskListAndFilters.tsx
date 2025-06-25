@@ -37,7 +37,7 @@ import {
 } from "firebase/firestore";
 
 import { useFirebase } from "@/lib/firebase";
-
+import { useAuth } from "@/app/context/AuthContext";
 export default function TaskListAndFilters() {
   const {
     db,
@@ -54,6 +54,8 @@ export default function TaskListAndFilters() {
   const [editedTitle, setEditedTitle] = useState<string>("");
   const [editedDescription, setEditedDescription] = useState<string>("");
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
+
+  const { user } = useAuth();
 
   useEffect(() => {
     // Only proceed if Firestore DB instance, authentication status, and userId are available
@@ -346,6 +348,9 @@ export default function TaskListAndFilters() {
         )}
       </div>
 
+      <h1 className="mb-6  md:hidden flex justify-center">
+        Welcome {user?.displayName}
+      </h1>
       <TaskCount
         tasks={tasks} // Pass all tasks for counting
         activeFilter={activeFilter}

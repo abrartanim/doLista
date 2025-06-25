@@ -34,7 +34,7 @@ export default function Header() {
           <div className="text-gray-500 text-sm">Loading user...</div>
         ) : isAuthenticated ? (
           // If authenticated, show user info and logout button
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 ">
             <MenuItem
               account_name={user?.displayName || user?.email || "User"} // Use display name or email
               account_picture_url={user?.photoURL} // Pass the photo URL

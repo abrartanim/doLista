@@ -17,7 +17,7 @@ export default function MenuItem({
         {account_name || "Guest"}
       </span>{" "}
       {/* Display "Guest" if no name */}
-      <div className="flex items-center">
+      <div className="hidden md:flex items-center">
         {account_picture_url ? (
           <Image
             src={account_picture_url}
